@@ -1,0 +1,12 @@
+{
+  "name": "vue-ssr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jwchan1996/vue-ssr.git",
+  "author": "jwchan1996 <741755613@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "vue": "^2.6.12",
+    "vue-server-renderer": "^2.6.12"
+  }
+}
