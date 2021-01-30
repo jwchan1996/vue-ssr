@@ -1,5 +1,8 @@
 const Vue = require('vue')
-const renderer = require('vue-server-renderer').createRenderer()
+const fs = require('fs')
+const renderer = require('vue-server-renderer').createRenderer({
+  template: fs.readFileSync('./index.template.html', 'utf8')
+})
 const express = require('express')
 const server = express()
 
@@ -19,20 +22,7 @@ server.get('/', (req, res) => {
       return res.status(500).end('Internal Server Error')
     }
     res.setHeader('content-type', 'text/html; charset=utf8')
-    return res.end(`
-      <!DOCTYPE html>
-      <html lang="zh">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>vue-ssr</title>
-      </head>
-      <body>
-        ${html}
-      </body>
-      </html>
-    `)
+    return res.end(html)
   })
 })
 
