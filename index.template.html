@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>vue-ssr</title>
+  <!-- 使用三花括号(triple-mustache)进行 HTML 不转义插值(non-HTML-escaped interpolation) -->
+  {{{ meta }}}
+  <!-- 使用双花括号(double-mustache)进行 HTML 转义插值(HTML-escaped interpolation) -->
+  <title>{{ title }}</title>
 </head>
 <body>
+  <!-- 下面将是应用程序 HTML 标记注入的地方。 -->
   <!--vue-ssr-outlet-->
 </body>
 </html>

@@ -17,7 +17,12 @@ server.get('/', (req, res) => {
       message: '飘香豆腐'
     }
   })
-  renderer.renderToString(app, (err, html) => {
+  renderer.renderToString(app, {
+    title: 'vue-server-side-render',
+    meta: `
+      <meta name='vue-ssr' content='vue-server-side-render'>
+    `
+  }, (err, html) => {
     if (err) {
       return res.status(500).end('Internal Server Error')
     }
