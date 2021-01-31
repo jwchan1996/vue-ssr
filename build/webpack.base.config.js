@@ -59,14 +59,14 @@ module.exports = {
       },
       // CSS 预处理器，参考：https://vue-loader.vuejs.org/zh/guide/pre- processors.html 
       // 例如处理 Less 资源 
-      { 
-        test: /\.less$/, 
-        use: [ 
-          'vue-style-loader', 
-          'css-loader', 
-          'less-loader' 
-        ] 
-      }
+      // { 
+      //   test: /\.less$/, 
+      //   use: [ 
+      //     'vue-style-loader', 
+      //     'css-loader', 
+      //     'less-loader' 
+      //   ] 
+      // }
     ]
   },
   plugins: [ 
