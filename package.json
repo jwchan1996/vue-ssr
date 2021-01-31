@@ -8,7 +8,9 @@
   "scripts": {
     "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.client.config.js",
     "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js",
-    "build": "rimraf dist && yarn build:client && yarn build:server"
+    "build": "rimraf dist && yarn build:client && yarn build:server",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
