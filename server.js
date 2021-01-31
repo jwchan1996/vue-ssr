@@ -7,6 +7,8 @@ const clientManifest = require('./dist/vue-ssr-client-manifest.json')
 const serverBundle = require('./dist/vue-ssr-server-bundle.json')
 const template = fs.readFileSync('./index.template.html', 'utf8')
 
+// 通过读取打包后的 server-bundle.js 内容（entry--server.js 为入口文件的内容）加载得到 vue 实例
+// 然后将 vue 实例字符串注入到 template 中
 const renderer = require('vue-server-renderer').createBundleRenderer(serverBundle, {
   template,
   clientManifest
