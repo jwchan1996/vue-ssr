@@ -7,7 +7,7 @@ server.use('/dist', express.static('./dist'))
 
 const isProd = process.env.NODE_ENV === 'production'
 
-let render
+let renderer
 let onReady
 
 if (isProd) {
