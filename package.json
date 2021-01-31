@@ -5,11 +5,15 @@
   "repository": "https://github.com/jwchan1996/vue-ssr.git",
   "author": "jwchan1996 <741755613@qq.com>",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
+    "express": "^4.17.1",
     "vue": "^2.6.12",
     "vue-server-renderer": "^2.6.12"
   },
-  "dependencies": {
-    "express": "^4.17.1"
+  "devDependencies": {
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "vue-loader": "^15.9.6",
+    "webpack-merge": "^5.7.3",
+    "webpack-node-externals": "^2.5.2"
   }
 }
