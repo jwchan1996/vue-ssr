@@ -13,6 +13,7 @@
     "dev": "node server.js"
   },
   "dependencies": {
+    "chokidar": "^3.5.1",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "vue": "^2.6.12",

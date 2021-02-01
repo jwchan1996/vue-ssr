@@ -1,6 +1,10 @@
+const path = require('path')
+const fs = require('fs')
+const chokidar = require('chokidar')
+
 module.exports = (server, callback) => {
   let ready
-  const onReady = new Promise()
+  const onReady = new Promise(r => ready = r)
 
   // 监视构建 -> 更新 Renderer
 
@@ -17,6 +21,15 @@ module.exports = (server, callback) => {
   }
 
   // 监视构建 template -> 调用 update -> 更新 Render 渲染器
+  const templatePath = path.join(__dirname, '../index.template.html')
+  template = fs.readFileSync(templatePath, 'utf8')
+  update()
+  // 监视变化 fs.watch、fs.watchFile
+  chokidar.watch(templatePath).on('change', () => {
+    template = fs.readFileSync(templatePath, 'utf8')
+    update()
+    console.log('template change')
+  })
   // 监视构建 serverBundle -> 调用 update -> 更新 Render 渲染器
   // 监视构建 clientManifest -> 调用 update -> 更新 Render 渲染器
 
