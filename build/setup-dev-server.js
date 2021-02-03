@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const chokidar = require('chokidar')
 const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
 
 const resolve = file => path.resolve(__dirname, file)
 
@@ -36,15 +37,18 @@ module.exports = (server, callback) => {
   // 监视构建 serverBundle -> 调用 update -> 更新 Render 渲染器
   const serverConfig = require('./webpack.server.config')
   const serverCompiler = webpack(serverConfig)
-  serverCompiler.watch({}, (err, stats) => {
-    if (err) throw err
-    if (stats.hasErrors()) return 
-    serverBundle = JSON.parse(
-      fs.readFileSync(resolve('../dist/vue-ssr-server-bundle.json'), 'utf-8')
-    )
-    console.log(serverBundle)
-    update()
-  })
+  /**
+   * 打包构建并将结果输出到内存中
+   */
+  webpackDevMiddleware(serverCompiler)
+  // serverCompiler.watch({}, (err, stats) => {
+  //   if (err) throw err
+  //   if (stats.hasErrors()) return 
+  //   serverBundle = JSON.parse(
+  //     fs.readFileSync(resolve('../dist/vue-ssr-server-bundle.json'), 'utf-8')
+  //   )
+  //   update()
+  // })
   
   // 监视构建 clientManifest -> 调用 update -> 更新 Render 渲染器
 
