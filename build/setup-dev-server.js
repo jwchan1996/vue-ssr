@@ -36,11 +36,22 @@ module.exports = (server, callback) => {
   })
   // 监视构建 serverBundle -> 调用 update -> 更新 Render 渲染器
   const serverConfig = require('./webpack.server.config')
-  const serverCompiler = webpack(serverConfig)
+  const serverCompiler = webpack(serverConfig) 
   /**
    * 打包构建并将结果输出到内存中
    */
-  webpackDevMiddleware(serverCompiler)
+  const serverDevMiddleware = webpackDevMiddleware(serverCompiler, {
+    logLevel: 'silent'
+  })
+  // 构建完成后执行
+  serverCompiler.hooks.done.tap('server', () => {
+    serverBundle = JSON.parse(
+      // 从内存中读取文件 serverDevMiddleware.fileSystem 类似于 fs
+      serverDevMiddleware.fileSystem.readFileSync(resolve('../dist/vue-ssr-server-bundle.json'), 'utf-8')
+    )
+    console.log(serverBundle)
+    update()
+  })
   // serverCompiler.watch({}, (err, stats) => {
   //   if (err) throw err
   //   if (stats.hasErrors()) return 
