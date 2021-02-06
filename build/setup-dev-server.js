@@ -50,7 +50,7 @@ module.exports = (server, callback) => {
       // 从内存中读取文件 serverDevMiddleware.fileSystem 类似于 fs
       serverDevMiddleware.fileSystem.readFileSync(resolve('../dist/vue-ssr-server-bundle.json'), 'utf-8')
     )
-    console.log(serverBundle)
+    // console.log(serverBundle)
     update()
   })
   // serverCompiler.watch({}, (err, stats) => {
@@ -78,11 +78,12 @@ module.exports = (server, callback) => {
       // 从内存中读取文件 serverDevMiddleware.fileSystem 类似于 fs
       clientDevMiddleware.fileSystem.readFileSync(resolve('../dist/vue-ssr-client-manifest.json'), 'utf-8')
     )
-    console.log(clientManifest)
+    // console.log(clientManifest)
     update()
   })
 
   // 注意：将 clientDevMiddleware 挂载到 express 服务中。提供对其内存中数据的访问
+  // 提供静态资源访问，server 直接从内存读取即可，client 是因为需要提供静态资源访问
   server.use(clientDevMiddleware)
 
   return onReady
