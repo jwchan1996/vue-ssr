@@ -52,7 +52,7 @@ server.get('/', isProd
   : async (req, res) => {
     // 等待有了 Renderer 渲染器以后，才能调用 render 函数进行渲染
     await onReady
-    render()
+    render(req, res)
   }
 )
 

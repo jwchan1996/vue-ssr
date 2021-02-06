@@ -34,6 +34,7 @@ module.exports = (server, callback) => {
     update()
     console.log('template change')
   })
+
   // 监视构建 serverBundle -> 调用 update -> 更新 Render 渲染器
   const serverConfig = require('./webpack.server.config')
   const serverCompiler = webpack(serverConfig) 
@@ -62,6 +63,27 @@ module.exports = (server, callback) => {
   // })
   
   // 监视构建 clientManifest -> 调用 update -> 更新 Render 渲染器
+  const clientConfig = require('./webpack.client.config')
+  const clientCompiler = webpack(clientConfig) 
+  /**
+   * 打包构建并将结果输出到内存中
+   */
+  const clientDevMiddleware = webpackDevMiddleware(clientCompiler, {
+    publicPath: clientConfig.output.publicPath,
+    logLevel: 'silent'
+  })
+  // 构建完成后执行
+  clientCompiler.hooks.done.tap('client', () => {
+    clientManifest = JSON.parse(
+      // 从内存中读取文件 serverDevMiddleware.fileSystem 类似于 fs
+      clientDevMiddleware.fileSystem.readFileSync(resolve('../dist/vue-ssr-client-manifest.json'), 'utf-8')
+    )
+    console.log(clientManifest)
+    update()
+  })
+
+  // 注意：将 clientDevMiddleware 挂载到 express 服务中。提供对其内存中数据的访问
+  server.use(clientDevMiddleware)
 
   return onReady
 }
