@@ -3,6 +3,7 @@ const fs = require('fs')
 const chokidar = require('chokidar')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
+const hotMiddleware = require('webpack-hot-middleware')
 
 const resolve = file => path.resolve(__dirname, file)
 
@@ -64,6 +65,12 @@ module.exports = (server, callback) => {
   
   // 监视构建 clientManifest -> 调用 update -> 更新 Render 渲染器
   const clientConfig = require('./webpack.client.config')
+  clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin)
+  clientConfig.entry.app = [
+    'webpack-hot-middleware/client?quiet=true&reload=true',  // 和服务端交互处理热更新一个客户端脚本
+    clientConfig.entry.app
+  ]
+  clientConfig.output.filename = '[name].js'  // 热更新模式下保持一致的文件名
   const clientCompiler = webpack(clientConfig) 
   /**
    * 打包构建并将结果输出到内存中
@@ -81,6 +88,10 @@ module.exports = (server, callback) => {
     // console.log(clientManifest)
     update()
   })
+
+  server.use(hotMiddleware(clientCompiler, {
+    log: false  // 关闭本身的输出打印
+  }))
 
   // 注意：将 clientDevMiddleware 挂载到 express 服务中。提供对其内存中数据的访问
   // 提供静态资源访问，server 直接从内存读取即可，client 是因为需要提供静态资源访问
