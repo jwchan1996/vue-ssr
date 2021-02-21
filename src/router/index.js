@@ -25,4 +25,5 @@ export const createRouter = () => {
       }
     ]
   })
+  return router
 }
