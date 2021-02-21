@@ -5,7 +5,12 @@ import { createApp } from './app'
 
 // 客户端特定引导逻辑……
 
-const { app, router } = createApp()
+const { app, router, store } = createApp()
+
+if (window.__INITIAL_STATE__) {
+  // 替换客户端容器的 state
+  store.replaceState(window.__INITIAL_STATE__)
+}
 
 // 等待路由初始化完成
 router.onReady(() => {

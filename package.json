@@ -13,13 +13,15 @@
     "dev": "node server.js"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "chokidar": "^3.5.1",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "vue": "^2.6.12",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.5.1",
-    "vue-server-renderer": "^2.6.12"
+    "vue-server-renderer": "^2.6.12",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
