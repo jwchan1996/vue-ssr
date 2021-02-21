@@ -33,12 +33,15 @@ if (isProd) {
   })
 }
 
+// 这里 renderer.renderToString 方法的参数对象
+// 会传递到 entry-server.js 导出模块函数的 context 参数中
 const render = (req, res) => {
   renderer.renderToString({
     title: 'vue-server-side-render',
     meta: `
       <meta name='vue-ssr' content='vue-server-side-render'>
-    `
+    `,
+    url: req.url
   }, (err, html) => {
     if (err) {
       return res.status(500).end('Internal Server Error')
@@ -48,7 +51,8 @@ const render = (req, res) => {
   })
 }
 
-server.get('/', isProd
+// 服务端路由设置为 *，表示所有路由请求都进入这里处理
+server.get('*', isProd
   ? render
   : async (req, res) => {
     // 等待有了 Renderer 渲染器以后，才能调用 render 函数进行渲染
