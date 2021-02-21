@@ -6,7 +6,11 @@
 
 <script>
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  // vue-meta 的配置项
+  metaInfo: {
+    title: '首页'
+  }
 }
 </script>
 

@@ -6,7 +6,11 @@
 
 <script>
 export default {
-  name: 'AboutPage'
+  name: 'AboutPage',
+  // vue-meta 的配置项
+  metaInfo: {
+    title: '关于'
+  }
 }
 </script>
 
